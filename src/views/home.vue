@@ -13,16 +13,34 @@ import Swiper from '@/components/Swiper'
 import m3 from '@/assets/home/2.png'
 import { ref } from 'vue'
 
+import store from '@/store/index'
+
 const a = ref(1)
 export default {
   name: 'Home',
   components: {
     Swiper
   },
-  setup (s, context) {
+  setup (props, context) {
     function onTestClick (event) {
-      context.emit('changView', event)
-      console.log(event)
+      // context.emit('changView', {
+      //   name:'Detail',
+      //   params:{
+      //     id:3
+      //   }
+      // })
+      //
+      // console.log(event)
+      //alert(store.state.url)
+      store.commit('changeView', {
+        routerParams:{
+          name:'Detail',
+          params:{
+           id:3
+          }
+        }
+      })
+      console.log(store.state.routerParams)
     }
 
     return {

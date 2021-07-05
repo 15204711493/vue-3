@@ -1,26 +1,36 @@
 <template>
   <div id="app">
     <router-view @changView="onChangView"/>
-    <!--    <home/>-->
+    {{store.state.url}}
   </div>
 </template>
 
 <script>
 
-import Home from '@/views/home'
+
+import router from '@/router'
+import store from '@/store/index'
+import {computed,watch} from 'vue'
+
 
 export default {
   name: 'App',
   components: {
-    // eslint-disable-next-line vue/no-unused-components
-    Home
   },
-  setup () {
-    function onChangView () {
-      alert()
+  setup (props, context) {
+
+    const c = computed(()=>store.state.routerParams)
+    watch(c, (newVal,oldVal)=>{
+      router.push(newVal)
+    })
+
+
+    function onChangView (event) {
+      // router.push(event)
     }
     return {
-      onChangView
+      onChangView,
+      store
     }
   }
 }
